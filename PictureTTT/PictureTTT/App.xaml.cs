@@ -30,5 +30,7 @@ namespace PictureTTT
         {
             // Handle when your app resumes
         }
+
     }
+
 }
