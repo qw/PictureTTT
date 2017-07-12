@@ -12,7 +12,6 @@ namespace PictureTTT
         public App()
         {
             InitializeComponent();
-
             MainPage = new PictureTTT.MainPage();
         }
 

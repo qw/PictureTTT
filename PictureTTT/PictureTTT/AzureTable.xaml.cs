@@ -20,6 +20,8 @@ namespace PictureTTT
         //Subscription key and region
         const string subscriptionKey = "0f20ae1d128643d492ad1af03d13d616";
         const string uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+
+        public string contentString { get; set; }
         private MediaFile file = null;
 
         public AzureTable()
@@ -67,6 +69,7 @@ namespace PictureTTT
             //Only if photo is taken
             if (file == null)
             {
+                //Temporary debug action 
                 uploadingBusy.IsRunning = true;
                 HttpClient client = new HttpClient();
 
@@ -109,7 +112,7 @@ namespace PictureTTT
                         response = await client.PostAsync(uri, content);
 
                         // Get the JSON response.
-                        string contentString = await response.Content.ReadAsStringAsync();
+                        contentString = await response.Content.ReadAsStringAsync();
                         jsonResponse.Text = contentString;
 
                     }
@@ -165,14 +168,13 @@ namespace PictureTTT
                 response = await client.PostAsync(uri, content);
 
                 // Get the JSON response.
-                string contentString = await response.Content.ReadAsStringAsync();
+                contentString = await response.Content.ReadAsStringAsync();
                 jsonResponse.Text = contentString;
 
             }
 
             uploadingBusy.IsRunning = false;
         }
-
 
     }
 

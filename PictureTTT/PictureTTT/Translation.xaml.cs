@@ -15,7 +15,7 @@ namespace PictureTTT
 		public Translation ()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
-			InitializeComponent ();
+			InitializeComponent();
 		}
-	}
+    }
 }

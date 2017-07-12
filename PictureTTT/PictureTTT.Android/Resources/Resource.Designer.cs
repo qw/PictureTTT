@@ -2809,11 +2809,11 @@ namespace PictureTTT.Droid
 			// aapt resource value: 0x7f02010b
 			public const int notification_icon_background = 2130837771;
 			
-			// aapt resource value: 0x7f020110
-			public const int notification_template_icon_bg = 2130837776;
-			
 			// aapt resource value: 0x7f020111
-			public const int notification_template_icon_low_bg = 2130837777;
+			public const int notification_template_icon_bg = 2130837777;
+			
+			// aapt resource value: 0x7f020112
+			public const int notification_template_icon_low_bg = 2130837778;
 			
 			// aapt resource value: 0x7f02010c
 			public const int notification_tile_bg = 2130837772;
@@ -2826,6 +2826,9 @@ namespace PictureTTT.Droid
 			
 			// aapt resource value: 0x7f02010f
 			public const int roundedbgdark = 2130837775;
+			
+			// aapt resource value: 0x7f020110
+			public const int test = 2130837776;
 			
 			static Drawable()
 			{
