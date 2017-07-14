@@ -1,10 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PictureTTT.Translation" Title="Translation">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="16, 0, 0, 16">
-            <ScrollView HorizontalOptions="Start" VerticalOptions="Start">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <ScrollView Grid.Row="0">
                 <StackLayout>
-                    <Label Text="English" FontSize="Large"/>
+                    <Label Text="English/英语" FontSize="Large"/>
                     <Label Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eleifend placerat magna, vitae faucibus sapien convallis eget. Nulla nunc enim, euismod eu vehicula at, tempus vitae lorem. Donec ut sapien lectus. Aenean posuere orci sed elit efficitur, non ullamcorper dolor ullamcorper. Sed cursus, ex non eleifend luctus, erat ex malesuada tortor, et consectetur leo nisl in velit. Curabitur id ex lobortis, vulputate sapien id, feugiat neque. Integer vel hendrerit quam. Vestibulum sed vulputate nulla. Integer viverra tellus quis sodales malesuada. Phasellus tristique sollicitudin mattis. Phasellus sapien nunc, varius pellentesque fermentum pulvinar, interdum semper augue. Suspendisse fringilla ipsum nec justo fringilla, dignissim semper risus molestie. Cras at laoreet nulla, vel iaculis diam. Maecenas nec nisi eros. Aliquam accumsan, dolor sit amet bibendum tincidunt, eros risus commodo leo, at sollicitudin eros dolor eget ipsum. Fusce dapibus vitae sem nec hendrerit. Duis id faucibus elit. Morbi viverra, magna volutpat pretium finibus, nibh mauris blandit libero, sit amet mollis erat erat in sem. Fusce ultricies condimentum arcu, sed scelerisque orci tincidunt vel. Sed venenatis vulputate nulla, et posuere est ornare eu. Curabitur non metus mauris. Proin vehicula nibh eros, a varius lectus posuere non. Aliquam ullamcorper blandit diam, non bibendum quam commodo vitae. Sed nisi nunc, eleifend et ligula sagittis, elementum pulvinar orci.
 
     Ut id justo a nibh malesuada venenatis. Nullam vitae odio felis. Nunc dapibus arcu non mattis tincidunt. In eget erat fermentum, condimentum est a, tempor elit. Morbi diam quam, tristique vel egestas eu, viverra eu nulla. Proin sit amet vulputate mauris. Cras aliquam ligula eget erat venenatis accumsan eu non erat. Nunc et iaculis est, vitae convallis dui. Aliquam metus nibh, semper eu luctus at, suscipit sed lacus. Integer finibus mi dui, nec bibendum magna vehicula ac. Aliquam erat volutpat. Cras a lobortis libero. Sed iaculis rhoncus felis vitae dictum. Vestibulum porta odio non ex tempus laoreet. Vivamus vel maximus eros.
@@ -14,12 +19,13 @@
     Mauris interdum sapien non felis congue blandit. Integer vitae lorem id nibh vehicula dignissim. Vestibulum lacinia metus a neque porta, in porta orci sollicitudin. Cras commodo elit nulla. Nulla consequat felis nec consequat scelerisque. Nulla fermentum orci nisl, eu rhoncus eros elementum dictum. Aenean justo ipsum, dapibus ac dolor vitae, venenatis consequat diam."/>
                 </StackLayout>
             </ScrollView>
-            <ScrollView HorizontalOptions="Start" VerticalOptions="End">
+
+            <ScrollView Grid.Row="1">
                 <StackLayout>
-                    <Label Text="Chinese" FontSize="Large"/>
+                    <Label Text="Chinese/中文" FontSize="Large"/>
                     <Label Text="Ut id justo a nibh malesuada venenatis. Nullam vitae odio felis. Nunc dapibus arcu non mattis tincidunt. In eget erat fermentum, condimentum est a, tempor elit. Morbi diam quam, tristique vel egestas eu, viverra eu nulla. Proin sit amet vulputate mauris. Cras aliquam ligula eget erat venenatis accumsan eu non erat. Nunc et iaculis est, vitae convallis dui. Aliquam metus nibh, semper eu luctus at, suscipit sed lacus. Integer finibus mi dui, nec bibendum magna vehicula ac. Aliquam erat volutpat. Cras a lobortis libero. Sed iaculis rhoncus felis vitae dictum. Vestibulum porta odio non ex tempus laoreet. Vivamus vel maximus eros."/>
                 </StackLayout>
             </ScrollView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
