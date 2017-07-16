@@ -10,12 +10,20 @@ using Xamarin.Forms.Xaml;
 namespace PictureTTT
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class Translation : ContentPage
+	public partial class Translation : ContentPage, APIHandlingListener
 	{
-		public Translation ()
+        private APIHandlingModel model = APIHandlingModel.Instance;
+
+        public Translation ()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
 			InitializeComponent();
-		}
+            model.addListener(this);
+        }
+
+        public void update()
+        {
+            EnglishTextLabel.Text = model.JSONObject.ToString();
+        }
     }
 }

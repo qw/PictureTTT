@@ -11,7 +11,7 @@
                 </StackLayout>
 
                 <ActivityIndicator x:Name="uploadingBusy" IsRunning="false" />
-                <Label x:Name="jsonResponse" Text="Placeholder Text"/>
+                <Label x:Name="jsonResponse" />
                 <Image x:Name="image" Aspect="AspectFit" />
 
             </StackLayout>

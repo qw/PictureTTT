@@ -11,12 +11,15 @@ using Xamarin.Forms.Xaml;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace PictureTTT
 {
     class APIHandlingModel
     {
-        private List<APIHandlingListener> listeners = new List<APIHandlingListener>() { };
+        private List<APIHandlingListener> listeners = new List<APIHandlingListener>() {};
+        public string customVisionJSONString { get; set; }
+        public CustomVisionJSONObject JSONObject { get; set; }
 
         private static APIHandlingModel instance;
         public static APIHandlingModel Instance
@@ -40,6 +43,7 @@ namespace PictureTTT
 
         private APIHandlingModel() { }
 
+        //TODO
         public async Task uploadFromGallery(String imagePath)
         {
             //Converts local image to bytearray
@@ -95,11 +99,14 @@ namespace PictureTTT
                 response = await client.PostAsync(uri, content);
 
                 // Get the JSON response.
-                contentString = await response.Content.ReadAsStringAsync();
+                customVisionJSONString = await response.Content.ReadAsStringAsync();
+                contentString = customVisionJSONString;
             }
 
             //extract english from JSON response
             //do API call to Translate service
+            JSONObject = JsonConvert.DeserializeObject<CustomVisionJSONObject>(customVisionJSONString);
+            updateListeners();
         }
 
         public void addListener(APIHandlingListener listener)
