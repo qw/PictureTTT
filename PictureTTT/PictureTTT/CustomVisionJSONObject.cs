@@ -16,17 +16,13 @@ namespace PictureTTT
         public class Region
         {
             public string BoundingBox { get; set; }
-
             public List<SingleLine> Lines { get; set; }
-           
         }
 
         public class SingleLine
         {
             public string BoundingBox { get; set; }
-
             public List<SingleWord> Words { get; set; }
-            
         }
 
         public class SingleWord
@@ -36,7 +32,7 @@ namespace PictureTTT
         }
 
         //Gets all Text formatted by Lines
-        public string ToString()
+        public override string ToString()
         {
             string s = "";
             foreach(Region r in Regions)

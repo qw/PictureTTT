@@ -23,7 +23,8 @@ namespace PictureTTT
 
         public void update()
         {
-            EnglishTextLabel.Text = model.JSONObject.ToString();
+            EnglishTextLabel.Text = model.OriginalLanguageJSONObject.ToString();
+            ChineseTextLabel.Text = model.TranslatedText;
         }
     }
 }

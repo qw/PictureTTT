@@ -77,7 +77,6 @@ namespace PictureTTT
                 await model.uploadFromCamera(file);
             }
 
-            jsonResponse.Text = model.contentString;
             uploadingBusy.IsRunning = false;
         }
 

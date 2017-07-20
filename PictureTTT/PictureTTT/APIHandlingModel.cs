@@ -12,6 +12,8 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System.Reflection;
 using Newtonsoft.Json;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace PictureTTT
 {
@@ -19,7 +21,8 @@ namespace PictureTTT
     {
         private List<APIHandlingListener> listeners = new List<APIHandlingListener>() {};
         public string customVisionJSONString { get; set; }
-        public CustomVisionJSONObject JSONObject { get; set; }
+        public CustomVisionJSONObject OriginalLanguageJSONObject { get; set; }
+        public string TranslatedText { get; set; }
 
         private static APIHandlingModel instance;
         public static APIHandlingModel Instance
@@ -36,10 +39,13 @@ namespace PictureTTT
         }
 
         //Subscription key and region
-        const string subscriptionKey = "0f20ae1d128643d492ad1af03d13d616";
-        const string uriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
-
-        public string contentString { get; set; }
+        private const string cognitiveServicesKey = "0f20ae1d128643d492ad1af03d13d616";
+        private const string cognitiveServicesUriBase = "https://westcentralus.api.cognitive.microsoft.com/vision/v1.0/ocr";
+        private const string translateAuthTokenUriBase = "https://api.cognitive.microsoft.com/sts/v1.0/issueToken";
+        private const string translateAPIKey = "fa50d39abc5642deac47370f4e85c7b0";
+        private const string translateAPIUriBase = "https://api.microsofttranslator.com/V2/Http.svc/Translate";
+        private const string languageFrom = "en";
+        private const string languageTo = "zh-cn";
 
         private APIHandlingModel() { }
 
@@ -74,18 +80,17 @@ namespace PictureTTT
             file.Dispose();
         }
          
+        // This method makes two API requests. One posts an image to Microsoft's Text Extraction Custom Vision, and the second posts the result to the Microsoft Translate Text API
         public async Task MakeOCRRequest(byte[] byteData)
         {
+            // Text extraction request
             HttpClient client = new HttpClient();
 
             // Request headers.
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
-
-            // Request parameters.
-            string requestParameters = "language=unk&detectOrientation=true";
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", cognitiveServicesKey);
 
             // Assemble the URI for the REST API Call.
-            string uri = uriBase + "?" + requestParameters;
+            string uri = cognitiveServicesUriBase + "?language=unk&detectOrientation=true";
 
             HttpResponseMessage response;
 
@@ -100,12 +105,37 @@ namespace PictureTTT
 
                 // Get the JSON response.
                 customVisionJSONString = await response.Content.ReadAsStringAsync();
-                contentString = customVisionJSONString;
             }
 
-            //extract english from JSON response
-            //do API call to Translate service
-            JSONObject = JsonConvert.DeserializeObject<CustomVisionJSONObject>(customVisionJSONString);
+            // Extract english from JSON response
+            OriginalLanguageJSONObject = JsonConvert.DeserializeObject<CustomVisionJSONObject>(customVisionJSONString);
+
+            // Get auth token
+            client = new HttpClient();
+            string authToken = null;
+            using (StringContent content = new StringContent(""))
+            {
+              content.Headers.Add("Ocp-Apim-Subscription-Key", translateAPIKey);
+              HttpResponseMessage responseToken = await client.PostAsync(translateAuthTokenUriBase, content);
+              authToken = await responseToken.Content.ReadAsStringAsync();
+            }
+
+            // Get Translate API request
+            client = new HttpClient();
+            string requestURL = translateAPIUriBase + "?appid=Bearer " + authToken + "&from=" + languageFrom + "&to=" + languageTo + "&text=" + OriginalLanguageJSONObject.ToString();
+            response = await client.GetAsync(requestURL);
+            String xmlResponse = await response.Content.ReadAsStringAsync();
+
+            // Convert XML response to String
+            XDocument doc = new XDocument();
+            doc = XDocument.Parse(xmlResponse);
+            xmlResponse = "";
+            foreach (var item in doc.Descendants())
+            {
+                xmlResponse += item.Value;
+            }
+            TranslatedText = FormatTranslatedResponse(xmlResponse);
+
             updateListeners();
         }
 
@@ -120,6 +150,23 @@ namespace PictureTTT
             {
                 l.update();
             }
+        }
+        
+        // Currently replaces white space with new line
+        private string FormatTranslatedResponse(string response)
+        {
+            List<char> stringList = new List<char>();
+            stringList = response.ToCharArray().ToList();
+
+            for (int i = 0; i < stringList.Count; i++)
+            {
+                if (stringList[i] == ' ')
+                { 
+                    stringList[i] = '\n';
+                }
+            }
+
+            return String.Concat(stringList);
         }
 
     }
