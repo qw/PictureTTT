@@ -84,6 +84,7 @@ namespace PictureTTT
         {
             await DisplayAlert("Upload Complete!", "Upload Complete!", "OK");
         }
+
     }
 
 }

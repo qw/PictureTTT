@@ -8,12 +8,12 @@ using Microsoft.WindowsAzure.MobileServices;
 
 namespace PictureTTT
 {
-    public class AzureManagerModel : APIHandlingListener
+    public class AzureManagerModel
     {
         private MobileServiceClient client;
-        private IMobileServiceTable<DatabaseJSONObject> PictureTTTTable;
-        private APIHandlingModel model;
-        private DatabaseJSONObject databaseJSONObject;
+        private IMobileServiceTable<PictureTTTTable> pictureTTTTable;
+        //private APIHandlingModel model = APIHandlingModel.Instance;
+        public PictureTTTTable databaseJSONObject { get; set; }
 
         private static AzureManagerModel instance;
         public static AzureManagerModel Instance
@@ -29,14 +29,10 @@ namespace PictureTTT
             }
         }
 
-
         private AzureManagerModel()
         {
-            client = new MobileServiceClient("https://picturettt.azurewebsites.net/");
-            PictureTTTTable = client.GetTable<DatabaseJSONObject>();
-            model = APIHandlingModel.Instance;
-            model.addListener(this);
-            GetTable();
+            client = new MobileServiceClient("https://picturettt.azurewebsites.net");
+            pictureTTTTable = client.GetTable<PictureTTTTable>();
         }
 
         public MobileServiceClient AzureClient
@@ -44,25 +40,17 @@ namespace PictureTTT
             get { return client; }
         }
 
-        public async void GetTable()
+        public async Task GetTable()
         {
-            List<DatabaseJSONObject> list = await PictureTTTTable.ToListAsync();
-            databaseJSONObject = list[0];
+            List<PictureTTTTable> list = await pictureTTTTable.ToListAsync();
+            databaseJSONObject = list[0]; 
+            //databaseJSONObject = await pictureTTTTable.LookupAsync("695adb78-4337-482a-b04d-db893b6be7e3");
         }
 
-        public async Task UpdateText()
+        public async Task UpdateText(PictureTTTTable databaseJSONObject)
         {
-            model.databaseJSONObject.From = model.languageFrom;
-            model.databaseJSONObject.To = model.languageTo;
-            model.databaseJSONObject.OriginalText = model.OriginalText;
-            model.databaseJSONObject.TranslatedText = model.TranslatedText;
-
-            await PictureTTTTable.UpdateAsync(model.databaseJSONObject);
-        }
-
-        public async void update()
-        {
-            await UpdateText();
+            if (databaseJSONObject != null)
+                await pictureTTTTable.UpdateAsync(databaseJSONObject);
         }
     }
 }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace PictureTTT.JSONObjects
 {
-    public class DatabaseJSONObject
+    public class PictureTTTTable
     {
-        [JsonProperty(PropertyName = "Id")]
-        public string ID { get; set; }
+        [JsonProperty(PropertyName = "id")]
+        public string Id { get; set; }
 
         [JsonProperty(PropertyName = "From")]
         public string From { get; set; }

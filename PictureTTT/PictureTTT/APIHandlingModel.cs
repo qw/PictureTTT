@@ -21,15 +21,13 @@ namespace PictureTTT
     class APIHandlingModel
     {
         private List<APIHandlingListener> listeners = new List<APIHandlingListener>() { };
-
+        private AzureManagerModel azureManagerModel;
         public CustomVisionJSONObject OriginalLanguageJSONObject { get; set; }
-        public DatabaseJSONObject databaseJSONObject { get; set; }
+        public PictureTTTTable databaseJSONObject { get; set; }
         public string TranslatedText { get; set; }
         public string OriginalText { get; set; }
         public string languageFrom = "en";
         public string languageTo = "zh-cn";
-
-        public AzureManagerModel azureManager { get; set; }
 
         // ####Subscription key and region####
         private const string cognitiveServicesKey = "0f20ae1d128643d492ad1af03d13d616";
@@ -39,14 +37,13 @@ namespace PictureTTT
         private const string translateAPIKey = "fa50d39abc5642deac47370f4e85c7b0";
         private const string translateAPIUriBase = "https://api.microsofttranslator.com/V2/Http.svc/Translate";
 
-
-
         private const string easyTableUriBase = "PictureTTT.azurewebsites.net/tables/PictureTTTTable";
         // ###################################
 
         private APIHandlingModel()
         {
-            azureManager = AzureManagerModel.Instance;
+            azureManagerModel = AzureManagerModel.Instance;
+            databaseJSONObject = new PictureTTTTable();
         }
 
         private static APIHandlingModel instance;
@@ -63,21 +60,46 @@ namespace PictureTTT
             }
         }
 
-        //TODO
+        public async Task GetTable()
+        {
+            await azureManagerModel.GetTable();
+            string[] temp = azureManagerModel.databaseJSONObject.ToStringArray();
+            this.databaseJSONObject = azureManagerModel.databaseJSONObject;
+            OriginalText = temp[0];
+            TranslatedText = temp[1];
+            updateListeners();
+        }
+
+        public async Task UpdateText()
+        {
+            databaseJSONObject.From = languageFrom;
+            databaseJSONObject.To = languageTo;
+            databaseJSONObject.TranslatedText = TranslatedText;
+            databaseJSONObject.OriginalText = OriginalText;
+            await azureManagerModel.UpdateText(databaseJSONObject);
+        }
+
+        //TODO currently this method uploads a sample image "PictureTTT/upload.png"
         public async Task uploadFromGallery(String imagePath)
         {
-            //Converts local image to bytearray
-            byte[] byteData = null;
-            var assembly = this.GetType().GetTypeInfo().Assembly;
-            string[] resourceNames = GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
-            using (Stream s = assembly.GetManifestResourceStream(imagePath))
+            try
             {
-                long length = s.Length;
-                byteData = new byte[(int)length];
-                s.Read(byteData, 0, (int)length);
-            }
+                //Converts local image to bytearray
+                byte[] byteData = null;
+                var assembly = this.GetType().GetTypeInfo().Assembly;
+                string[] resourceNames = GetType().GetTypeInfo().Assembly.GetManifestResourceNames();
+                using (Stream s = assembly.GetManifestResourceStream(imagePath))
+                {
+                    long length = s.Length;
+                    byteData = new byte[(int)length];
+                    s.Read(byteData, 0, (int)length);
+                }
 
-             await makeOCRRequest(byteData);
+                await makeOCRRequest(byteData);
+            } catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
         }
 
         public async Task uploadFromCamera(MediaFile file)
@@ -148,6 +170,9 @@ namespace PictureTTT
             }
             this.TranslatedText = formatTranslatedResponse(xmlResponse);
 
+            databaseJSONObject.OriginalText = OriginalText;
+            databaseJSONObject.TranslatedText = TranslatedText;
+            await azureManagerModel.UpdateText(databaseJSONObject);
             updateListeners();
         }
 

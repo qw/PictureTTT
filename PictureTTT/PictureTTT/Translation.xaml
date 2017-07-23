@@ -6,20 +6,20 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <ScrollView Grid.Row="0">
-                <StackLayout>
-                    <Label Text="English/英语" FontSize="Large"/>
-                    <Label x:Name="EnglishTextLabel" Text="English Text Here"/>
-                </StackLayout>
-            </ScrollView>
 
-            <ScrollView Grid.Row="1">
-                <StackLayout>
-                    <Label Text="Chinese/中文" FontSize="Large"/>
-                    <Label x:Name="ChineseTextLabel" Text="中文文本这里"/>
-                </StackLayout>
-            </ScrollView>
+                <ScrollView Grid.Row="0">
+                    <StackLayout>
+                        <Label Text="English/英语" FontSize="Large"/>
+                        <Label x:Name="EnglishTextLabel" Text="English Text Here"/>
+                    </StackLayout>
+                </ScrollView>
+
+                <ScrollView Grid.Row="1">
+                    <StackLayout>
+                        <Label Text="Chinese/中文" FontSize="Large"/>
+                        <Label x:Name="ChineseTextLabel" Text="中文文本这里"/>
+                    </StackLayout>
+                </ScrollView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

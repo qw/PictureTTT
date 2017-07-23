@@ -45,7 +45,7 @@
       <DependentUpon>AzureTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="JSONObjects\CustomVisionJSONObject.cs" />
-    <Compile Include="JSONObjects\DatabaseJSONObject.cs" />
+    <Compile Include="JSONObjects\PictureTTTTable.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
