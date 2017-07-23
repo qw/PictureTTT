@@ -12,7 +12,6 @@ namespace PictureTTT
     {
         private MobileServiceClient client;
         private IMobileServiceTable<PictureTTTTable> pictureTTTTable;
-        //private APIHandlingModel model = APIHandlingModel.Instance;
         public PictureTTTTable databaseJSONObject { get; set; }
 
         private static AzureManagerModel instance;

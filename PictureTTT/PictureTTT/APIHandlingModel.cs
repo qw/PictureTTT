@@ -60,6 +60,7 @@ namespace PictureTTT
             }
         }
 
+        // Get OriginalText and TranslatedText from Azure Easy Table
         public async Task GetTable()
         {
             await azureManagerModel.GetTable();
@@ -70,6 +71,7 @@ namespace PictureTTT
             updateListeners();
         }
 
+        // Update OriginalText and TranslatedText from Azure Easy Table
         public async Task UpdateText()
         {
             databaseJSONObject.From = languageFrom;
@@ -116,7 +118,7 @@ namespace PictureTTT
             file.Dispose();
         }
          
-        // This method makes two API requests. One posts an image to Microsoft's Text Extraction Custom Vision, and the second posts the result to the Microsoft Translate Text API
+        // This method makes two API requests. The first posts an image to Microsoft's Text Extraction Custom Vision, and the second posts the result to the Microsoft Translate Text API
         public async Task makeOCRRequest(byte[] byteData)
         {
             // Text extraction request
@@ -125,7 +127,7 @@ namespace PictureTTT
             // Request headers.
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", cognitiveServicesKey);
 
-            // Assemble the URI for the REST API Call.
+            // Assemble the URI for the Call.
             string uri = cognitiveServicesUriBase + "?language=unk&detectOrientation=true";
 
             HttpResponseMessage response;
@@ -144,7 +146,7 @@ namespace PictureTTT
             this.OriginalLanguageJSONObject = JsonConvert.DeserializeObject<CustomVisionJSONObject>(customVisionStringResponse);
             this.OriginalText = OriginalLanguageJSONObject.ToString();
 
-            // Get auth token
+            // Get 10 minute auth-token for API call
             client = new HttpClient();
             string authToken = null;
             using (StringContent content = new StringContent(""))
@@ -181,7 +183,7 @@ namespace PictureTTT
             listeners.Add(listener);
         }
 
-        // Notifies all listeners
+        // Notify all listeners
         private void updateListeners()
         {
             foreach (APIHandlingListener l in listeners)
