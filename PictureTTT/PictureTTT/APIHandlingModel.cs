@@ -172,6 +172,7 @@ namespace PictureTTT
             }
             this.TranslatedText = formatTranslatedResponse(xmlResponse);
 
+            // Update Easy Table Entry
             databaseJSONObject.OriginalText = OriginalText;
             databaseJSONObject.TranslatedText = TranslatedText;
             await azureManagerModel.UpdateText(databaseJSONObject);
