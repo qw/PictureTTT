@@ -4,11 +4,12 @@ A cross-platform Xamarin app ultilizing Microsoft Cognitve Services API and Micr
 
 # Demostration
 ### Main page
-![Alt text](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/main.png?raw=true "Photo Page")
+<img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/main.png" width="48">
+![Photo Page](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/main.png?raw=true "Photo Page")
 ### Take a photo from the camera
-![Alt text](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/camera.png?raw=true "Taking an image")
+![Taking image](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/camera.png?raw=true "Taking an image")
 ### Uploading to Microsoft Cognitive Services
-![Alt text](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/upload.png?raw=true "Uploading image")
+![Uploading image](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/upload.png?raw=true "Uploading image")
 #### Result of extraction and translation
-![Alt text](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/result.png?raw=true "Result")
+![Result](https://github.com/shurui-li/PictureTTT/blob/master/screenshots/translate.png?raw=true "Result")
 
