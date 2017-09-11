@@ -4,7 +4,7 @@ A cross-platform Xamarin app ultilizing Microsoft Cognitve Services API and Micr
 
 # Demostration
 ### Main page
-![Alt text](/blob/master/screenshots/main.PNG?raw=true "Photo Page")
+![Alt text](/PictureTTT/screenshots/main.PNG?raw=true "Photo Page")
 ### Take a photo from the camera
 ![Alt text](/blob/master/screenshots/camera.PNG?raw=true "Taking an image")
 ### Uploading to Microsoft Cognitive Services
