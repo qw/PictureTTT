@@ -5,7 +5,7 @@ A cross-platform Xamarin app ultilizing Microsoft Cognitve Services API and Micr
 # Demostration
 ### In Action
 <img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/demo.gif" height=100% width="auto"></img>
-### Take a photo from the camera
+### Main
 <img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/main.png" width="320"></img>
 ### Take a photo from the camera
 <img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/camera.png" width="320"></img>
