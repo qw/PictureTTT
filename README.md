@@ -1,6 +1,7 @@
 # PictureTTT
 ### Picture To Text Translator
-A cross-platform Xamarin app ultilizing Microsoft Cognitve Services API and Microsoft Translate Text API to extract text from photos and translates them.
+A cross-platform Xamarin app that extracts text from photos and translates them. This app uses the Microsoft Cognitve Services API and Microsoft Translate Text API.
+This app was inspired by the fact that my family members would often come to me to translate english for them, but I am not always around. I thought it would be convenient for them if they could just point their smartphone at english text and be able to read them.
 
 # Demostration
 ### In Action
