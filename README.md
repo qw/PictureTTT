@@ -3,7 +3,9 @@
 A cross-platform Xamarin app ultilizing Microsoft Cognitve Services API and Microsoft Translate Text API to extract text from photos and translates them.
 
 # Demostration
-### Main page
+### In Action
+<img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/demo.gif" height=100% width="auto"></img>
+### Take a photo from the camera
 <img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/main.png" width="320"></img>
 ### Take a photo from the camera
 <img src="https://github.com/shurui-li/PictureTTT/blob/master/screenshots/camera.png" width="320"></img>
